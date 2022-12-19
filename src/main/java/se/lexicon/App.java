@@ -16,9 +16,16 @@ public class App
         System.out.println("city = " + city);*/
 
         // findByCode()
-        CityDao dao = new CityDaoJDBC();
+       /* CityDao dao = new CityDaoJDBC();
         List<City> cities = dao.findByCode("IRN");
-        cities.forEach(System.out::println);
+        cities.forEach(System.out::println);*/
+
+        // findByName()
+        CityDao dao = new CityDaoJDBC();
+        List<City> cities1 = dao.findByName("Teheran");
+        cities1.forEach(System.out::println);
+
+
 
 
     }

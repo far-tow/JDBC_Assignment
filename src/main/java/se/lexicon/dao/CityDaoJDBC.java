@@ -60,7 +60,28 @@ public class CityDaoJDBC implements CityDao {
     }
 
     public List<City> findByName(String name) {
-        return null;
+        String query = "SELECT * FROM city WHERE name = ?";
+        List<City> cities = new ArrayList<>();
+        try (
+                PreparedStatement ps = DbConnection.getConnection().prepareStatement(query);
+        ) {
+            ps.setString(1, name);
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next()){
+                cities.add(new City(
+                        resultSet.getInt(1),
+                        resultSet.getString(2),
+                        resultSet.getString(3),
+                        resultSet.getString(4),
+                        resultSet.getInt(5)
+                ));
+            }
+
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return cities;
     }
 
     public List<City> findAll() {
