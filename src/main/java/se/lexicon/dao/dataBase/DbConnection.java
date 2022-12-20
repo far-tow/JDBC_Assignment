@@ -1,5 +1,7 @@
 package se.lexicon.dao.dataBase;
 
+import se.lexicon.extentions.DBConnectionException;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -11,14 +13,14 @@ public class DbConnection {
     private static final String pWorld = "12345678";
 
     //Establish Connection object
-    public static Connection getConnection() {
-        Connection conn = null;
+    public static Connection getConnection() throws DBConnectionException {
         try {
-            conn = DriverManager.getConnection(URL, uName, pWorld);
-            System.out.println("Connection OK");
+            return DriverManager.getConnection(URL, uName, pWorld);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DBConnectionException("Database connection failed!");
         }
-        return conn;
+
     }
+
+
 }
