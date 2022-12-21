@@ -15,7 +15,8 @@ public class CityDaoJDBC implements CityDao {
         City city = new City();
 
         try (
-                PreparedStatement ps = DbConnection.getConnection().prepareStatement(query);
+                Connection connection = DbConnection.getConnection();
+                PreparedStatement ps = connection.prepareStatement(query);
         ) {
             ps.setInt(1, id);
             ResultSet resultSet = ps.executeQuery();
@@ -37,7 +38,8 @@ public class CityDaoJDBC implements CityDao {
         String query = "SELECT * FROM city WHERE countrycode = ?";
         List<City> cities = new ArrayList<>();
         try (
-                PreparedStatement ps = DbConnection.getConnection().prepareStatement(query);
+                Connection connection = DbConnection.getConnection();
+                PreparedStatement ps = connection.prepareStatement(query);
         ) {
             ps.setString(1, code);
             ResultSet resultSet = ps.executeQuery();
@@ -62,7 +64,8 @@ public class CityDaoJDBC implements CityDao {
         String query = "SELECT * FROM city WHERE name = ?";
         List<City> cities = new ArrayList<>();
         try (
-                PreparedStatement ps = DbConnection.getConnection().prepareStatement(query);
+                Connection connection = DbConnection.getConnection();
+                PreparedStatement ps = connection.prepareStatement(query);
         ) {
             ps.setString(1, name);
             ResultSet resultSet = ps.executeQuery();
@@ -87,7 +90,8 @@ public class CityDaoJDBC implements CityDao {
         String query = "SELECT * FROM city";
         List<City> cities = new ArrayList<>();
         try {
-            Statement statement = DbConnection.getConnection().createStatement();
+            Connection connection = DbConnection.getConnection();
+            Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
                 cities.add(new City(
