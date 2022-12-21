@@ -1,13 +1,18 @@
 package se.lexicon.dao;
 
 import se.lexicon.dao.dataBase.DbConnection;
-import se.lexicon.extentions.DBConnectionException;
+import se.lexicon.exeptions.DBConnectionException;
 import se.lexicon.model.City;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/** java doc
+ * JDBC_Assignment
+ * @author Farhad
+ * @version 1.1
+ */
 public class CityDaoJDBC implements CityDao {
 
     public City findById(int id) {

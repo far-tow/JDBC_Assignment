@@ -12,7 +12,7 @@ public class App
 
     public static void main( String[] args ) {
        CityDao dao = new CityDaoJDBC();
-       /*City city = dao.findById(43);
+      /* City city = dao.findById(43);
         System.out.println("city = " + city);*/
 
         // findByCode()

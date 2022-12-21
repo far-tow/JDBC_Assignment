@@ -1,4 +1,4 @@
-package se.lexicon.extentions;
+package se.lexicon.exeptions;
 
 public class DBConnectionException extends Exception {
 
