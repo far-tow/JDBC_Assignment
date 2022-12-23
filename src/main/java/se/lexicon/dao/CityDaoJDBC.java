@@ -8,8 +8,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/** java doc
+/**
+ * java doc
  * JDBC_Assignment
+ *
  * @author Farhad
  * @version 1.1
  */
@@ -127,8 +129,26 @@ public class CityDaoJDBC implements CityDao {
             ps.setString(3, city.getDistrict());
             ps.setInt(4, city.getPopulation());
 
+            //Check if city with CountryCode already exist first!
+            try (
+                    PreparedStatement preparedStatement = connection.prepareStatement("select count(*) as count from city where name = ? and countryCode = ?");
+            ) {
+                preparedStatement.setString(1, city.getName());
+                preparedStatement.setString(2, city.getCountryCode());
+
+                ResultSet resultSet1 = preparedStatement.executeQuery();
+
+                int isExist;
+                if (resultSet1.next()) {
+                    isExist = resultSet1.getInt("count");
+                    //System.out.println("It exists");
+                    if (isExist > 0) throw new RuntimeException(city.getName() + " already exists");
+                }
+            }
+            //if not exist then add it.
+
             int result = ps.executeUpdate();
-            System.out.println((result == 1) ? "Added successfully" : "Not added!");
+            //System.out.println((result == 1) ? city + "\n" + " Added successfully" : city.getName() + " Not added!");
             try (ResultSet resultSet = ps.getGeneratedKeys();) {
 
                 int keyId = 0;
@@ -136,6 +156,7 @@ public class CityDaoJDBC implements CityDao {
                     keyId = resultSet.getInt(1);
                 }
                 city.setId(keyId);
+                System.out.println((result == 1) ? city + "\n" + " Added successfully" : city.getName() + " Not added!");
             }
 
         } catch (DBConnectionException | SQLException e) {
@@ -156,7 +177,6 @@ public class CityDaoJDBC implements CityDao {
             ps.setString(3, city.getDistrict());
             ps.setInt(4, city.getPopulation());
             ps.setInt(5, city.getId());
-
 
             int result = ps.executeUpdate();
             System.out.println((result == 1) ? "Updated successfully" : "Not updated!");

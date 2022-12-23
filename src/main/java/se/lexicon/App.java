@@ -12,7 +12,7 @@ public class App
 
     public static void main( String[] args ) {
        CityDao dao = new CityDaoJDBC();
-      /* City city = dao.findById(43);
+       /*City city = dao.findById(43);
         System.out.println("city = " + city);*/
 
         // findByCode()
@@ -32,12 +32,12 @@ public class App
         City addedCity = dao.add(addCity);*/
 
         // update()
-        /*City update = new City(4081,"Mörrum", "SWE", "BLEKINGE LÄN",3900);
-        City updated = dao.update(update);*/
+        City update = new City(4081,"Mörrum", "SWE", "BLEKINGE LÄN",3900);
+        City updated = dao.update(update);
 
         // delete()
-       City delete = new City(4081, "Mörrum", "SWE", "BLEKEINGE LÄN", 3900);
-        int deleted = dao.delete(delete);
+       /*City delete = new City(4081, "Mörrum", "SWE", "BLEKEINGE LÄN", 3900);
+        int deleted = dao.delete(delete);*/
 
 
 
